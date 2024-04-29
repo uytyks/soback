@@ -3,18 +3,23 @@ AABAAAAAAA<br>
 AAAAAADAAA<br>
 AAAACAAAAA<br>
 AAAAAEAAAA<br>
-FAAAAAAAAA`;
+FAAAAAAAAA<br>`;
 
+//The holy array that holds the entire map
 mapArray = [];
 
+mapRow = [];
 for(i = 0; i < map.length;i++){
     if(map.substring(i,i+4) == "<br>"){
-        mapArray.push("<br>");
         i = i+4
-        //Temporary thing that ONLY doesnt accept newlines and lines them up right
+        mapArray.push(mapRow);
+        console.log("NEW ROW ADDED");
+        mapRow = [];
+        //Add newline to map row
     }
     else{
-        mapArray.push(map[i]);
+        mapRow.push(map[i])
+        console.log(mapRow);
     }
 }
 
@@ -38,12 +43,15 @@ function checkMovement(e) {
 
     let mapString = "";
     for(j = 0; j < mapArray.length;j++){
-        mapString = mapString + mapArray[j]
+        for(k = 0; k < mapArray[j].length;k++){
+            mapString = mapString + mapArray[j][k];
+        }
+        mapString = mapString + "<br>"
     }
     document.getElementById("map").innerHTML = mapString;
 
 }
 
 function moveUp(){
-
+    
 }
