@@ -10,6 +10,10 @@ AAAAAAAAGAA<br>`;
 //Will eventually just hold a viewport
 mapArray = [];
 mapRow = [];
+
+//Below variables are hardcoded for now, they are bounds of world, viewport, and starting position
+//The viewport number is how many squares in each direction of the player can you see, so 2 = a 5x5 square
+viewport = 2;
 position = [0,0];
 bounds = [-5,5,-3,3]
 
@@ -61,8 +65,8 @@ function checkMovement(e) {
     //Keep track of a movement variable
     //Draw the viewport around that variable
     let mapString = "";
-    for(j = 0; j < mapArray.length;j++){
-        for(k = 0; k < mapArray[j].length;k++){
+    for(j = position[1] - viewport; j < position[1] + viewport;j++){
+        for(k = position[0] - viewport; k < position[0] + viewport + position;k++){
             mapString = mapString + mapArray[j][k];
         }
         mapString = mapString + "<br>"
