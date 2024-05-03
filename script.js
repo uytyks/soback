@@ -53,13 +53,13 @@ function checkMovement(e) {
     }
     else if (e.keyCode == '37') {
        // left arrow
-       if(position[0] - viewport > bounds[0]){
+       if(position[0] - viewport*2 > bounds[0]){
         position[0]--;
         }
     }
     else if (e.keyCode == '39') {
        // right arrow
-       if(position[0] + viewport < bounds[1]){
+       if(position[0] + viewport*2 < bounds[1]){
         position[0]++;
         }
     }
@@ -68,9 +68,10 @@ function checkMovement(e) {
     //Every time that a movement key is pressed, write to the screen
     //Keep track of a movement variable
     //Draw the viewport around that variable
+    //Horizontal viewport is 2x the length of the vertical one
     let mapString = "";
     for(j = position[1] - viewport; j < position[1] + viewport+1;j++){
-        for(k = position[0] - viewport; k < position[0] + viewport+1;k++){
+        for(k = position[0] - viewport*2; k < position[0] + viewport*2+1;k++){
             if(position[1] == j && position[0] == k){
                 mapString = mapString + "P";
             }
