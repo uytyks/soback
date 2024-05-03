@@ -1,10 +1,14 @@
-let map = `AAAAAAAAAAA<br>
-AABAAAAAAAA<br>
-AAAAAADAAAA<br>
-AAAACAAAAAA<br>
-AAAAAEAAAAA<br>
-FAAAAAAAAAA<br>
-AAAAAAAAGAA<br>`;
+let map = `AAAAAAAAAAAHFLAUEHFJS<br>
+AAAAAEAAAAATTEYREYTRA<br>
+AABAAAAAAAAANFUETAIAN<br>
+AAAAAEAAAAATTEYREYTRA<br>
+AAAAAADAAAABAHSFUDSSA<br>
+AAAAAEAAAAATTEYREYTRA<br>
+AAAACAAAAAADCASSFDCDA<br>
+AAAAAEAAAAATTEYREYTRA<br>
+FAAAAAAAASDLKOKVODKOA<br>
+AAAAAEAAAAATTEYREYTRA<br>
+AAAAAAAAASDNUECIEINIA<br>`;
 
 //The holy array that holds the entire map
 //Will eventually just hold a viewport
@@ -13,9 +17,9 @@ mapRow = [];
 
 //Below variables are hardcoded for now, they are bounds of world, viewport, and starting position
 //The viewport number is how many squares in each direction of the player can you see, so 2 = a 5x5 square
-viewport = 2;
-position = [5,3];
-bounds = [0,10,0,6]
+viewport = 3;
+position = [10,5];
+bounds = [0,20,0,10]
 
 //The below function just converts the block of text into a 2D array
 for(i = 0; i < map.length;i++){
@@ -67,7 +71,12 @@ function checkMovement(e) {
     let mapString = "";
     for(j = position[1] - viewport; j < position[1] + viewport+1;j++){
         for(k = position[0] - viewport; k < position[0] + viewport+1;k++){
-            mapString = mapString + mapArray[j][k];
+            if(position[1] == j && position[0] == k){
+                mapString = mapString + "P";
+            }
+            else{
+                mapString = mapString + mapArray[j][k];
+            }
             console.log(mapString);
         }
         mapString = mapString + "<br>"
