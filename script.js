@@ -1,24 +1,57 @@
-let colors = {
-    E: "gray",
-    G: "green",
-    A: "white",
-    B: "blue",
-    W: "black",
-    M: "magenta"
-  };
+//Helper Functions
+function getKeyByValue(object, value1, value2) {
+    return Object.keys(object).find(key =>
+        object[key] === value1 && object[key] === value2);
+}
 
-let map = `AAEAAAAAAAAAAAAAAAEAA<e>
-AAAEAAAAAAAAAAAAAEAAA<e>
-ARAEAAAAAGAAAAAGAEAAA<e>
-AAAEEAAGAAAAAAAAEEAAA<e>
-AAAAEAAAAAAGAAAAEAAAA<e>
-AAAAEAAAAAAAAAAAEAAAA<e>
-ABAAEAGGAAAAAAAAEAPBA<e>
-AAAAEAGGAAAAAAAAEAAAA<e>
-AAAAEAAAAAAAGGAAEAAAA<e>
-AAAAEAAAAAAAGGAAEAAAA<e>
-AMAAEEEEEEEEEEEEEAAAA<e>
-AAWMAAAAAAAAAAAAAAAAA<e>`;
+let blocks = {
+    E:{color:"gray",move:false},
+    G:{color:"green",move:false},
+    A:{color:"white",move:true},
+    B:{color:"blue",move:true},
+    W:{color:"black",move:true},
+    M:{color:"magenta",move:true},
+    R:{color:"brown",move:true},
+    P:{color:"pink",move:true}
+}
+
+let NPCs = {
+    "<C1>":{
+        symbol:"C",
+        color:"black",
+        backgroundColor:"yellow",
+        move:false,
+        y:9,
+        x:14
+    }
+}
+
+let map = `AAAAEAAAAAAAAAAAAAAAEAAAA<e>
+AAAAEAAAAAAAAAAAAAAAEAAAA<e>
+AAAAEAAAAGAAAAAAAAAAEAAAA<e>
+AAAAEAAAAGAAAAAAAAAAEAAAA<e>
+AAAAAEAAAAAAAAAAAAAEAAAAA<e>
+AAARAEAAAAAGAAAAAGAEAAAAA<e>
+AAAAAEEAAGAAAAAAAAEEAAAAA<e>
+AAAAAAEAAAAAAGAAAAEAAAAAA<e>
+AAAAAAEAAAAAAAAAAAEAAAAAA<e>
+AAABAAEAGGAAAA#AAAEAPBAAA<e>
+AAAAAAEAGGAAAAAAAAEAAAAAA<e>
+AAAAAAEAAAAAAAGGAAEAAAAAA<e>
+AAAAAAEAAAAAAAGGAAEAAAAAA<e>
+AAAMAAEEEEEEEEEEEEEAAAAAA<e>
+AAAAWMAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>
+AAAAAAAAAAAAAAAAAAAAAAAAA<e>`;
+//The # is an interactable object
+//Its position will be tracked independently
+//In this case, it will be an NPC
 
 //The holy array that holds the entire map
 //Will eventually just hold a viewport
@@ -31,7 +64,7 @@ viewport = 3;
 //Position is starting position of player, the upper left corner is 0,0
 position = [10,5];
 //Bounds is the min and max values of the map if put into array form
-bounds = [0,20,0,10]
+bounds = [0,24,0,21]
 
 //The below function just converts the block of text into a 2D array
 for(i = 0; i < map.length;i++){
@@ -53,25 +86,25 @@ document.onkeydown = checkMovement;
 function checkMovement(e) {
     if (e.keyCode == '38') {
         // up arrow
-        if(position[1] - viewport > bounds[2]){
+        if(position[1] - viewport > bounds[2] && blocks[mapArray[position[1]-1][position[0]]].move == true){
             position[1]--;
         }
     }
     else if (e.keyCode == '40') {
         // down arrow
-        if(position[1] + viewport < bounds[3]){
+        if(position[1] + viewport < bounds[3] && blocks[mapArray[position[1]+1][position[0]]].move == true){
             position[1]++;
         }
     }
     else if (e.keyCode == '37') {
        // left arrow
-       if(position[0] - viewport*2 > bounds[0]){
+       if(position[0] - viewport*2 > bounds[0] && blocks[mapArray[position[1]][position[0]-1]].move == true){
         position[0]--;
         }
     }
     else if (e.keyCode == '39') {
        // right arrow
-       if(position[0] + viewport*2 < bounds[1]){
+       if(position[0] + viewport*2 < bounds[1] && blocks[mapArray[position[1]][position[0]+1]].move == true){
         position[0]++;
         }
     }
@@ -88,10 +121,12 @@ function checkMovement(e) {
             if(position[1] == j && position[0] == k){
                 mapString = mapString + "<div style=\"background-color:orange;\"class=\"mapItem\"><b>P</b></div>";
             }
-            else{
-                mapString = mapString + `<div style=\"background-color:${colors[mapArray[j][k]]};\"class=\"mapItem\">` + mapArray[j][k] + "</div>";
+            else if(NPC){
+
             }
-            console.log(mapString);
+            else{
+                mapString = mapString + `<div style=\"background-color:${blocks[mapArray[j][k]].color};color:${blocks[mapArray[j][k]].color}\"class=\"mapItem\">` + mapArray[j][k] + "</div>";
+            }
         }
         mapString = mapString + "</div>";
     }
