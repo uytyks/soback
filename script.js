@@ -1,8 +1,5 @@
 //Helper Functions
-function getKeyByValue(object, value1, value2) {
-    return Object.keys(object).find(key =>
-        object[key] === value1 && object[key] === value2);
-}
+
 
 let blocks = {
     E:{color:"gray",move:false},
