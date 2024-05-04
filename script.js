@@ -1,14 +1,15 @@
-let map = `AAAAAAAAAAAHFLAUEHFJS<br>
-AAAAAEAAAAATTEYREYTRA<br>
-AABAAAAAAAAANFUETAIAN<br>
-AAAAAEAAAAATTEYREYTRA<br>
-AAAAAADAAAABAHSFUDSSA<br>
-AAAAAEAAAAATTEYREYTRA<br>
-AAAACAAAAAADCASSFDCDA<br>
-AAAAAEAAAAATTEYREYTRA<br>
-FAAAAAAAASDLKOKVODKOA<br>
-AAAAAEAAAAATTEYREYTRA<br>
-AAAAAAAAASDNUECIEINIA<br>`;
+let map = `AAEAAAAAAAAAAAAAAAEAA<br>
+AAAEAAAAAAAAAAAAAEAAA<br>
+ARAEAAAAAAAAAAAAAEAAA<br>
+AAAEEAAAAAAA',AAEEAAA<br>
+AAAAEAA'AAAA',AAEAAYA<br>
+AAAAEAAAAAAAAAAAEAAAA<br>
+ABAAEAGGAAAAAAAAEAPBA<br>
+AAAAEAGGAAAAAAAAEAAAA<br>
+ALKAEAAAAAAAGGAAEAAAA<br>
+AAAAEAAAAAAAGGAAEAAAA<br>
+AMAAEEEEEEEEEEEEEAAAA<br>
+AAWMAAAAAAAAALLLAAAAA<br>`;
 
 //The holy array that holds the entire map
 //Will eventually just hold a viewport
@@ -73,7 +74,7 @@ function checkMovement(e) {
     for(j = position[1] - viewport; j < position[1] + viewport+1;j++){
         for(k = position[0] - viewport*2; k < position[0] + viewport*2+1;k++){
             if(position[1] == j && position[0] == k){
-                mapString = mapString + "P";
+                mapString = mapString + "<b>P</b>";
             }
             else{
                 mapString = mapString + mapArray[j][k];

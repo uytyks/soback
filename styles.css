@@ -1,5 +1,9 @@
 #map{
     position: absolute;
-    top: 40%;
+    border:7px solid black;
+    font-family:monospace;
+    font-size:30px;
+    padding:8px;
+    top: 25%;
     left: 40%;
 }
