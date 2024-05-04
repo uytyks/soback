@@ -7,3 +7,6 @@
     top: 25%;
     left: 40%;
 }
+.mapItem {
+    display: inline-block;
+  }

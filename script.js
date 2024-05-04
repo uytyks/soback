@@ -1,15 +1,24 @@
-let map = `AAEAAAAAAAAAAAAAAAEAA<br>
-AAAEAAAAAAAAAAAAAEAAA<br>
-ARAEAAAAAAAAAAAAAEAAA<br>
-AAAEEAAAAAAA',AAEEAAA<br>
-AAAAEAA'AAAA',AAEAAYA<br>
-AAAAEAAAAAAAAAAAEAAAA<br>
-ABAAEAGGAAAAAAAAEAPBA<br>
-AAAAEAGGAAAAAAAAEAAAA<br>
-ALKAEAAAAAAAGGAAEAAAA<br>
-AAAAEAAAAAAAGGAAEAAAA<br>
-AMAAEEEEEEEEEEEEEAAAA<br>
-AAWMAAAAAAAAALLLAAAAA<br>`;
+let colors = {
+    E: "gray",
+    G: "green",
+    A: "white",
+    B: "blue",
+    W: "black",
+    M: "magenta"
+  };
+
+let map = `AAEAAAAAAAAAAAAAAAEAA<e>
+AAAEAAAAAAAAAAAAAEAAA<e>
+ARAEAAAAAGAAAAAGAEAAA<e>
+AAAEEAAGAAAAAAAAEEAAA<e>
+AAAAEAAAAAAGAAAAEAAAA<e>
+AAAAEAAAAAAAAAAAEAAAA<e>
+ABAAEAGGAAAAAAAAEAPBA<e>
+AAAAEAGGAAAAAAAAEAAAA<e>
+AAAAEAAAAAAAGGAAEAAAA<e>
+AAAAEAAAAAAAGGAAEAAAA<e>
+AMAAEEEEEEEEEEEEEAAAA<e>
+AAWMAAAAAAAAAAAAAAAAA<e>`;
 
 //The holy array that holds the entire map
 //Will eventually just hold a viewport
@@ -19,13 +28,15 @@ mapRow = [];
 //Below variables are hardcoded for now, they are bounds of world, viewport, and starting position
 //The viewport number is how many squares in each direction of the player can you see, so 2 = a 5x5 square
 viewport = 3;
+//Position is starting position of player, the upper left corner is 0,0
 position = [10,5];
+//Bounds is the min and max values of the map if put into array form
 bounds = [0,20,0,10]
 
 //The below function just converts the block of text into a 2D array
 for(i = 0; i < map.length;i++){
-    if(map.substring(i,i+4) == "<br>"){
-        i = i+4
+    if(map.substring(i,i+3) == "<e>"){
+        i = i+3
         mapArray.push(mapRow);
         console.log("NEW ROW ADDED");
         mapRow = [];
@@ -72,16 +83,17 @@ function checkMovement(e) {
     //Horizontal viewport is 2x the length of the vertical one
     let mapString = "";
     for(j = position[1] - viewport; j < position[1] + viewport+1;j++){
+        mapString = mapString + "<div>"
         for(k = position[0] - viewport*2; k < position[0] + viewport*2+1;k++){
             if(position[1] == j && position[0] == k){
-                mapString = mapString + "<b>P</b>";
+                mapString = mapString + "<div style=\"background-color:orange;\"class=\"mapItem\"><b>P</b></div>";
             }
             else{
-                mapString = mapString + mapArray[j][k];
+                mapString = mapString + `<div style=\"background-color:${colors[mapArray[j][k]]};\"class=\"mapItem\">` + mapArray[j][k] + "</div>";
             }
             console.log(mapString);
         }
-        mapString = mapString + "<br>"
+        mapString = mapString + "</div>";
     }
     document.getElementById("map").innerHTML = mapString;
 
