@@ -1,5 +1,18 @@
 //Helper Functions
-
+function findNPC(x, y){
+    var npc = "";
+    for(var i = 0; i < NPCs.length;i++){
+        if (NPCs[i].y == y && NPCs[i].x == x){
+            npc = NPCs[i];
+        }
+    }
+    if(npc == ""){
+        return false;
+    }
+    else{
+        return npc;
+    }
+}
 
 let blocks = {
     E:{color:"gray",move:false},
