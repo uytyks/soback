@@ -89,9 +89,9 @@ for(i = 0; i < map.length;i++){
     }
 }
 
-document.onkeydown = checkMovement;
+document.onkeydown = checkKeys;
 
-function checkMovement(e) {
+function checkKeys(e) {
     if (e.keyCode == '38') {
         // up arrow
         if(position[1] - viewport > bounds[2] && blocks[mapArray[position[1]-1][position[0]]].move == true){
@@ -116,6 +116,21 @@ function checkMovement(e) {
         position[0]++;
         }
     }
+    else if (e.keyCode == '32') {
+        // spacebar
+        // interact with object
+        var tempAdjacent = 
+        [`${position[0]+1},${position[1]}`,
+        `${position[0]-1},${position[1]}`,
+        `${position[0]},${position[1]+1}`,
+        `${position[0]},${position[1]-1}`]
+        for(var i = 0; i < 4;i++){
+            var inter = interactiveMap[tempAdjacent[i]];
+            if(inter != undefined){
+                alert(`INTERACTING WITH ${inter}`)
+            }
+        }
+     }
     //console.log(position);
 
     //Every time that a movement key is pressed, write to the screen
