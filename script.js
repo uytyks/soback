@@ -1,3 +1,18 @@
+//============================
+//INVENTORY
+//============================
+let inventory = [];
+
+function inventoryRefresh(){
+    //reload html with the array
+}
+
+
+
+
+//==========================================
+//BLOCKS AND INTERACTABLES
+//===========================================
 let blocks = {
     E:{color:"gray",move:false},
     G:{color:"green",move:false},
@@ -34,6 +49,15 @@ let interactiveMap = {
     "7,7": "Chest1"
 }
 
+
+
+
+
+//====================================
+//MAP GENERATION
+//====================================
+
+//The holy map string
 let map = `AAAAEAAAAAAAAAAAAAAAEAAAA<e>
 AAAAEAAAAAAAAAAAAAAAEAAAA<e>
 AAAAEAAAAGAAAAAAAAAAEAAAA<e>
@@ -57,16 +81,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAA<e>
 AAAAAAAAAAAAAAAAAAAAAAAAA<e>
 AAAAAAAAAAAAAAAAAAAAAAAAA<e>
 AAAAAAAAAAAAAAAAAAAAAAAAA<e>`;
-//The # is an interactable object
-//Its position will be tracked independently
-//In this case, it will be an NPC
 
-//The holy array that holds the entire map
-//Will eventually just hold a viewport
+//The holy map array
 mapArray = [];
 mapRow = [];
 
-//Below variables are hardcoded for now, they are bounds of world, viewport, and starting position
+//---HARDCODED MAP VARIABLES---
+//
 //The viewport number is how many squares in each direction of the player can you see, so 2 = a 5x5 square
 viewport = 3;
 //Position is starting position of player, the upper left corner is 0,0
@@ -74,7 +95,7 @@ position = [10,5];
 //Bounds is the min and max values of the map if put into array form
 bounds = [0,24,0,21]
 
-//The below function just converts the block of text into a 2D array
+//Converts Map String into the Map Array
 for(i = 0; i < map.length;i++){
     if(map.substring(i,i+3) == "<e>"){
         i = i+3
@@ -89,8 +110,22 @@ for(i = 0; i < map.length;i++){
     }
 }
 
-document.onkeydown = checkKeys;
+function interactObject(inter){
+    if(inter == "Chest1"){
+        alert("You found a chest!\nInside was a Key!");
+        inventory.push("Key");
+        inventoryRefresh();
+    }
+}
 
+
+
+
+
+//==========================
+//CHECKING IF KEYS PRESSED
+//==========================
+document.onkeydown = checkKeys;
 function checkKeys(e) {
     if (e.keyCode == '38') {
         // up arrow
@@ -128,14 +163,13 @@ function checkKeys(e) {
             var inter = interactiveMap[tempAdjacent[i]];
             if(inter != undefined){
                 alert(`INTERACTING WITH ${inter}`)
+                interactObject(inter);
             }
         }
      }
-    //console.log(position);
-
-    //Every time that a movement key is pressed, write to the screen
-    //Keep track of a movement variable
-    //Draw the viewport around that variable
+    //=================================
+    //VIEWPORT LOADING
+    //=================================
     //Horizontal viewport is 2x the length of the vertical one
     let mapString = "";
     for(j = position[1] - viewport; j < position[1] + viewport+1;j++){

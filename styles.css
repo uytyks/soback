@@ -10,3 +10,19 @@
 .mapItem {
     display: inline-block;
   }
+
+#inventory{
+    position: absolute;
+    border:7px solid black;
+    font-family:monospace;
+    font-size:35px;
+    padding:8px;
+    top: 20%;
+    left: 25%;
+}
+
+#inv{
+    font-family:monospace;
+    font-size:20px;
+    list-style-type: none;
+}
