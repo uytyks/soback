@@ -18,11 +18,27 @@
     font-size:35px;
     padding:8px;
     top: 20%;
-    left: 25%;
+    left: 15%;
 }
 
 #invList{
     font-family:monospace;
     font-size:20px;
     list-style-type: none;
+}
+
+#chatBox{
+    position: absolute;
+    border:7px solid black;
+    font-family:monospace;
+    font-size:35px;
+    padding:8px;
+    top: 20%;
+    left: 65%;
+}
+
+#chat{
+    font-family:monospace;
+    font-size:20px;
+    list-style-type:none;
 }

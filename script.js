@@ -24,6 +24,9 @@ function inventoryRefresh(){
 //==========================================
 //BLOCKS AND INTERACTABLES
 //===========================================
+let isInteracting = false;
+let currentNPC = "";
+
 let blocks = {
     E:{color:"gray",move:false},
     G:{color:"green",move:false},
@@ -62,9 +65,28 @@ let interactiveMap = {
     "7,7": "Chest1"
 }
 
+function interactObject(inter){
+    if(inter == "Chest1"){
+        alert("You found a chest!\n\nInside was a Key!");
+        inventory.push("Key");
+        inventoryRefresh();
+        mapArray[Interactables[inter].y][Interactables[inter].x] = "A";
+        inter.usable = false;
+    }
+    else if(inter == "Tutorial"){
+        alert("Beginning NPC Tutorial Interaction");
+        isInteracting = true;
+        currentNPC = "Tutorial";
+    }
+}
 
+//====================================
+//NPC CONVERSATIONS
+//====================================
 
-
+convoProgress(){
+    console.log("PROGRESSING DIALOGUE NOW");
+}
 
 //====================================
 //MAP GENERATION
@@ -123,19 +145,6 @@ for(i = 0; i < map.length;i++){
     }
 }
 
-function interactObject(inter){
-    if(inter == "Chest1"){
-        alert("You found a chest!\n\nInside was a Key!");
-        inventory.push("Key");
-        inventoryRefresh();
-        mapArray[Interactables[inter].y][Interactables[inter].x] = "A";
-        inter.usable = false;
-    }
-}
-
-
-
-
 
 //==========================
 //CHECKING IF KEYS PRESSED
@@ -169,20 +178,27 @@ function checkKeys(e) {
     else if (e.keyCode == '32') {
         // spacebar
         // interact with object
-        var tempAdjacent = 
-        [`${position[0]+1},${position[1]}`,
-        `${position[0]-1},${position[1]}`,
-        `${position[0]},${position[1]+1}`,
-        `${position[0]},${position[1]-1}`]
-        for(var i = 0; i < 4;i++){
-            var inter = interactiveMap[tempAdjacent[i]];
-            if(inter != undefined){
-                if(Interactables[inter].usable == true){
-                    interactObject(inter);
+        //if interacting w an NPC, progress dialogue instead of interacting again
+        if(isInteracting){
+            convoProgress();
+        }
+        else{
+        //else look for things to interact with
+            var tempAdjacent = 
+            [`${position[0]+1},${position[1]}`,
+            `${position[0]-1},${position[1]}`,
+            `${position[0]},${position[1]+1}`,
+            `${position[0]},${position[1]-1}`]
+            for(var i = 0; i < 4;i++){
+                var inter = interactiveMap[tempAdjacent[i]];
+                if(inter != undefined){
+                    if(Interactables[inter].usable == true){
+                        interactObject(inter);
+                    }
                 }
             }
         }
-     }
+    }
     //=================================
     //VIEWPORT LOADING
     //=================================
