@@ -1,7 +1,7 @@
 let blocks = {
     E:{color:"gray",move:false},
     G:{color:"green",move:false},
-    A:{color:"white",move:true},
+    A:{color:"#70e64c",move:true},
     B:{color:"blue",move:true},
     W:{color:"black",move:true},
     M:{color:"magenta",move:true},
@@ -20,7 +20,7 @@ let Interactables = {
         type:"NPC"
     },
     "Chest1":{
-        symbol:"C",
+        symbol:"c",
         color:"yellow",
         backgroundColor:"brown",
         y:7,
