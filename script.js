@@ -1,4 +1,17 @@
 //============================
+//PROGRESSION
+//============================
+//This is the overall progression of the game
+
+//I just threw 10 0s in here, they'll all be used for values eventually, its an array of flags pretty much
+let eventArray = [0,0,0,0,0,0,0,0]
+//0: Tutorial Text Progression
+
+
+
+
+
+//============================
 //INVENTORY
 //============================
 let inventory = [];
@@ -23,9 +36,9 @@ function inventoryRefresh(){
 
 //==========================================
 //BLOCKS AND INTERACTABLES
-//===========================================
+//==========================================
+//check if in the middle of an NPC convo already or not
 let isInteracting = false;
-let currentNPC = "";
 
 let blocks = {
     E:{color:"gray",move:false},
@@ -76,17 +89,58 @@ function interactObject(inter){
     else if(inter == "Tutorial"){
         alert("Beginning NPC Tutorial Interaction");
         isInteracting = true;
-        currentNPC = "Tutorial";
+        //maybe check if already talked and set it to 1 to say different dialogue? idk
+        //set currentNPC details right here
+        currentNPC.name = "Tutorial";
+        currentNPC.dialogueIndex = 0;
+        currentNPC.dialogueCount = 0;
+
     }
 }
+
+
 
 //====================================
 //NPC CONVERSATIONS
 //====================================
 
-convoProgress(){
-    console.log("PROGRESSING DIALOGUE NOW");
+let currentNPC = {
+    name:"",
+    dialogueIndex: 0, //which dialogue array to pick
+    dialogueCount: 0, //which index in said array to show
 }
+
+//why length not work help
+function convoProgress(){
+    if(currentNPC.dialogueCount < dialogueMap[currentNPC.name][dialogueIndex].length){
+    dialogueCount++;
+    }
+    else{
+        
+    }
+
+    //fill in html based on currentNPC object
+
+}
+
+dialogueMap = {
+    "Tutorial":[
+        [ //first time meeting
+        "Oh hello!",
+        "Howdy!",
+        "It hurts so badly",
+        "Nice to meet you! :)"
+        ],
+        [ //idle text after first meeting
+        "Go.",
+        "Get outta here matey",
+        "I don't want you here."
+        ]
+    ]
+}
+
+
+
 
 //====================================
 //MAP GENERATION
