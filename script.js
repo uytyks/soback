@@ -5,6 +5,17 @@ let inventory = [];
 
 function inventoryRefresh(){
     //reload html with the array
+    let list = document.getElementById("invList");
+    if(inventory.length > 0){
+        let listString = "";
+        for(var i = 0; i < inventory.length;i++){
+            listString = listString + `<li>${inventory[i]}</li>`;
+        }
+        list.innerHTML = listString;
+    }
+    else{
+        list.innerHTML = "<li>Empty</li>";
+    }
 }
 
 
@@ -32,7 +43,8 @@ let Interactables = {
         backgroundColor:"yellow",
         y:9,
         x:14,
-        type:"NPC"
+        type:"NPC",
+        usable:true
     },
     "Chest1":{
         symbol:"c",
@@ -40,7 +52,8 @@ let Interactables = {
         backgroundColor:"brown",
         y:7,
         x:7,
-        type:"Event"
+        type:"Event",
+        usable:true
     }
 }
 
@@ -112,9 +125,11 @@ for(i = 0; i < map.length;i++){
 
 function interactObject(inter){
     if(inter == "Chest1"){
-        alert("You found a chest!\nInside was a Key!");
+        alert("You found a chest!\n\nInside was a Key!");
         inventory.push("Key");
         inventoryRefresh();
+        mapArray[Interactables[inter].y][Interactables[inter].x] = "A";
+        inter.usable = false;
     }
 }
 
@@ -162,8 +177,9 @@ function checkKeys(e) {
         for(var i = 0; i < 4;i++){
             var inter = interactiveMap[tempAdjacent[i]];
             if(inter != undefined){
-                alert(`INTERACTING WITH ${inter}`)
-                interactObject(inter);
+                if(Interactables[inter].usable == true){
+                    interactObject(inter);
+                }
             }
         }
      }
