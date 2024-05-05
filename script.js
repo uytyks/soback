@@ -1,19 +1,3 @@
-//Helper Functions
-function findNPC(x, y){
-    var npc = "";
-    for(var i = 0; i < NPCs.length;i++){
-        if (NPCs[i].y == y && NPCs[i].x == x){
-            npc = NPCs[i];
-        }
-    }
-    if(npc == ""){
-        return false;
-    }
-    else{
-        return npc;
-    }
-}
-
 let blocks = {
     E:{color:"gray",move:false},
     G:{color:"green",move:false},
@@ -22,18 +6,32 @@ let blocks = {
     W:{color:"black",move:true},
     M:{color:"magenta",move:true},
     R:{color:"brown",move:true},
-    P:{color:"pink",move:true}
+    P:{color:"pink",move:true},
+    "#":{move:false}
 }
 
-let NPCs = {
-    "<C1>":{
+let Interactables = {
+    "Tutorial":{
         symbol:"C",
         color:"black",
         backgroundColor:"yellow",
-        move:false,
         y:9,
-        x:14
+        x:14,
+        type:"NPC"
+    },
+    "Chest1":{
+        symbol:"C",
+        color:"yellow",
+        backgroundColor:"brown",
+        y:7,
+        x:7,
+        type:"Event"
     }
+}
+
+let interactiveMap = {
+    "14,9": "Tutorial",
+    "7,7": "Chest1"
 }
 
 let map = `AAAAEAAAAAAAAAAAAAAAEAAAA<e>
@@ -43,7 +41,7 @@ AAAAEAAAAGAAAAAAAAAAEAAAA<e>
 AAAAAEAAAAAAAAAAAAAEAAAAA<e>
 AAARAEAAAAAGAAAAAGAEAAAAA<e>
 AAAAAEEAAGAAAAAAAAEEAAAAA<e>
-AAAAAAEAAAAAAGAAAAEAAAAAA<e>
+AAAAAAE#AAAAAGAAAAEAAAAAA<e>
 AAAAAAEAAAAAAAAAAAEAAAAAA<e>
 AAABAAEAGGAAAA#AAAEAPBAAA<e>
 AAAAAAEAGGAAAAAAAAEAAAAAA<e>
@@ -118,7 +116,7 @@ function checkMovement(e) {
         position[0]++;
         }
     }
-    console.log(position);
+    //console.log(position);
 
     //Every time that a movement key is pressed, write to the screen
     //Keep track of a movement variable
@@ -131,8 +129,9 @@ function checkMovement(e) {
             if(position[1] == j && position[0] == k){
                 mapString = mapString + "<div style=\"background-color:orange;\"class=\"mapItem\"><b>P</b></div>";
             }
-            else if(NPC){
-
+            else if(mapArray[j][k] == '#'){
+                var inter = interactiveMap[`${k},${j}`];
+                mapString = mapString + `<div style=\"background-color:${Interactables[inter].backgroundColor};color:${Interactables[inter].color}\"class=\"mapItem\">` + `${Interactables[inter].symbol}` + "</div>";
             }
             else{
                 mapString = mapString + `<div style=\"background-color:${blocks[mapArray[j][k]].color};color:${blocks[mapArray[j][k]].color}\"class=\"mapItem\">` + mapArray[j][k] + "</div>";
