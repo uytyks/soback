@@ -94,7 +94,7 @@ function interactObject(inter){
         currentNPC.name = "Tutorial";
         currentNPC.dialogueIndex = 0;
         currentNPC.dialogueCount = 0;
-
+        convoProgress();
     }
 }
 
@@ -110,17 +110,17 @@ let currentNPC = {
     dialogueCount: 0, //which index in said array to show
 }
 
-//why length not work help
+
 function convoProgress(){
-    if(currentNPC.dialogueCount < dialogueMap[currentNPC.name][dialogueIndex].length){
-    dialogueCount++;
+    chatdiv = document.getElementById("chat");
+    chatdiv.innerHTML = dialogueMap[currentNPC.name][currentNPC.dialogueIndex][currentNPC.dialogueCount];
+    if(currentNPC.dialogueCount < Object.keys(dialogueMap[currentNPC.name][currentNPC.dialogueIndex]).length){
+        currentNPC.dialogueCount++;
     }
     else{
-        
+        isInteracting = false;
+        chatdiv.innerHTML = "";
     }
-
-    //fill in html based on currentNPC object
-
 }
 
 dialogueMap = {
