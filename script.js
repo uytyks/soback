@@ -89,10 +89,9 @@ function interactObject(inter){
     else if(inter == "Tutorial"){
         alert("Beginning NPC Tutorial Interaction");
         isInteracting = true;
-        //maybe check if already talked and set it to 1 to say different dialogue? idk
-        //set currentNPC details right here
         currentNPC.name = "Tutorial";
-        currentNPC.dialogueIndex = 0;
+        //match Tutorial with eventArray[0]
+        currentNPC.dialogueIndex = eventArray[0];
         currentNPC.dialogueCount = 0;
         convoProgress();
     }
@@ -103,25 +102,6 @@ function interactObject(inter){
 //====================================
 //NPC CONVERSATIONS
 //====================================
-
-let currentNPC = {
-    name:"",
-    dialogueIndex: 0, //which dialogue array to pick
-    dialogueCount: 0, //which index in said array to show
-}
-
-
-function convoProgress(){
-    chatdiv = document.getElementById("chat");
-    chatdiv.innerHTML = dialogueMap[currentNPC.name][currentNPC.dialogueIndex][currentNPC.dialogueCount];
-    if(currentNPC.dialogueCount < Object.keys(dialogueMap[currentNPC.name][currentNPC.dialogueIndex]).length){
-        currentNPC.dialogueCount++;
-    }
-    else{
-        isInteracting = false;
-        chatdiv.innerHTML = "";
-    }
-}
 
 dialogueMap = {
     "Tutorial":[
@@ -135,11 +115,45 @@ dialogueMap = {
         "Go.",
         "Get outta here matey",
         "I don't want you here."
+        ],
+        [ //he will hate you
+        "LEAVE.",
+        "GET OUT OF HERE GET OUT OF HERE!",
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         ]
     ]
 }
 
+//NPC Object instead of 3 variables
+let currentNPC = {
+    name:"",
+    dialogueIndex: 0, //which dialogue array to pick
+    dialogueCount: 0, //which index in said array to show
+}
 
+//General Function to Progress NPC Dialogue
+function convoProgress(){
+    chatdiv = document.getElementById("chat");
+    chatdiv.innerHTML = dialogueMap[currentNPC.name][currentNPC.dialogueIndex][currentNPC.dialogueCount];
+    if(currentNPC.dialogueCount < Object.keys(dialogueMap[currentNPC.name][currentNPC.dialogueIndex]).length){
+        currentNPC.dialogueCount++;
+    }
+    else{
+        isInteracting = false;
+        chatdiv.innerHTML = "";
+        endOfConvo(currentNPC.name,currentNPC.dialogueIndex);
+    }
+}
+
+//At the end of conversations, trigger events and change progress
+//Lots of if statements
+function endOfConvo(name, index){
+    if(name == "Tutorial"){
+        if(index != 2){
+            eventArray[0]++;
+        }
+    }
+}
 
 
 //====================================
