@@ -87,7 +87,6 @@ function interactObject(inter){
         inter.usable = false;
     }
     else if(inter == "Tutorial"){
-        alert("Beginning NPC Tutorial Interaction");
         isInteracting = true;
         currentNPC.name = "Tutorial";
         //match Tutorial with eventArray[0]
